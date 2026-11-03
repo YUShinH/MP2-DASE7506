@@ -1,49 +1,49 @@
 # Mini-project 2: Selecting Reliable LLM Reasoning
 
-**姓名：HE YUXIN；学号：3036897306。**
+**Author: HE YUXIN | Student ID: 3036897306**
 
-本目录是最终 **v14 提交版**，包含离线运行、训练复现、必要评测证据和报告。模型由题目—解答低秩交互评分器（权重 0.75）与基线 v2（权重 0.25）组成。
+This directory contains the final **v14** model, the files needed for offline evaluation and training reproduction, the project report, and recorded experimental evidence. The selector combines a question-conditioned low-rank scorer (weight 0.75) with the v2 baseline (weight 0.25).
 
-| 数据集 | 答对题数 | 准确率 |
+| Split | Correct / total | Accuracy |
 |---|---:|---:|
-| 验证集 | 753 / 798 | 94.3609022556391% |
-| 测试集 | 388 / 467 | **83.08351177730192%** |
+| Validation | 753 / 798 | 94.3609022556391% |
+| Test | 388 / 467 | **83.08351177730192%** |
 
-测试相对 v2 增加 8 题（+1.7131 个百分点）。这是一组课程数据上的实测提升，配对置信区间包含零。最终配置在本次测试前按验证集选择并冻结，没有根据测试结果继续调参。
+The test result improves on v2 by eight questions, or 1.7131 percentage points. The paired confidence interval includes zero. The final configuration was selected on validation and frozen before test evaluation; no test result was used to retune the model.
 
-## 1. 文件说明
+## 1. Directory contents
 
 ```text
 MP2_Submission_v14/
-  readme.md                     本运行指引
-  report.pdf                    黑白学术报告，最多 10 页；最后为 AI 辅助声明
-  requirements.txt              五个固定依赖
-  selector.py                   最终推理入口 predict(bank, arrays, checkpoint)
-  features.py                   96 维原有数值/文本特征
-  math_consistency.py            40 维数学一致性及组内相对特征
-  common.py                     原始数据读取与数字解析器（未改动）
-  predict.py                    原始预测工具（未改动）
-  score_predictions.py          原始独立评分器（未改动）
-  check_data.py                 原始数据完整性检查（未改动）
-  evaluate.py                   四线程冷启动预测 + 独立评分
-  verify.py                     资产哈希、接口与置换检查
-  analyze.py                    冻结后的验证可靠性与配对分析
-  train.py                      从训练数据重建最终选中权重
-  search.py                     复现 v14 的内部参数搜索和验证融合
-  training_utils.py             训练标签、标准化与基线学习器
-  test_interactions.py          交互模型及梯度测试
-  test_math_consistency.py       算术解析边界测试
-  checkpoint/                   最终推理资产，全部六个文件均需保留
-  data/                         课程原始题库、固定嵌入、许可和数据清单
-  evidence/                     官方分数、资源、内部搜索、冻结与对照记录
-  MANIFEST.json                 本提交文件的 SHA-256 清单
+  readme.md                    Installation and reproduction instructions
+  report.pdf                   Project report
+  requirements.txt             Pinned runtime and training dependencies
+  selector.py                  Final predict(bank, arrays, checkpoint) interface
+  features.py                  Original numerical and text features
+  math_consistency.py          Mathematical consistency features
+  common.py                    Original data loader and numeric parser
+  predict.py                   Original prediction runner
+  score_predictions.py         Original independent scorer
+  check_data.py                Original data integrity checker
+  evaluate.py                  Complete four-thread prediction and scoring
+  verify.py                    Asset, interface and permutation checks
+  analyze.py                   Post-freeze validation reliability analysis
+  train.py                     Rebuild the selected model from training data
+  search.py                    Replay the final v14 development search
+  training_utils.py            Shared training utilities
+  test_interactions.py         Interaction and derivative tests
+  test_math_consistency.py      Arithmetic parsing boundary tests
+  checkpoint/                  All six final inference assets
+  data/                        Original course data, embeddings and licenses
+  evidence/                    Scores, resources, search and freeze records
+  MANIFEST.json                Submission file sizes and SHA-256 hashes
 ```
 
-没有包含虚拟环境、IDE 配置、旧版模型、淘汰 checkpoint、临时图片或开发过程中的旧报告。训练和核验代码、数据与必要证据用于满足课程复现要求。
+The package excludes virtual environments, IDE settings, obsolete models, rejected checkpoints, cached predictions and temporary files. The training, verification and analysis scripts support reproducibility.
 
-## 2. 安装环境
+## 2. Environment setup
 
-推荐 **Python 3.12**；原实验使用 3.12.14。固定依赖：
+Use **Python 3.12**; the recorded runs used Python 3.12.14. Dependencies are pinned in `requirements.txt`:
 
 ```text
 numpy==2.1.3
@@ -53,43 +53,45 @@ joblib==1.4.2
 threadpoolctl==3.5.0
 ```
 
-Windows PowerShell：先进入本目录，再运行：
+Run the following commands from this submission directory.
+
+**Windows PowerShell:**
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-如果 `py -3.12` 找不到解释器，先安装 Python 3.12，或在 PyCharm 中选择本机 Python 3.12 新建环境。已有匹配环境时可直接使用，不必重复创建。
+If `py -3.12` is unavailable, install Python 3.12 or create a Python 3.12 virtual environment in PyCharm. You may reuse an existing environment with the required versions.
 
-Linux/macOS：
+**Linux/macOS:**
 
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-不需要 GPU、CUDA、PyTorch、CatBoost、API key 或下载额外预训练模型。安装依赖之后，预测与评分离线运行。
+No GPU, CUDA, PyTorch, CatBoost, API key or additional pretrained model is required. After dependencies are installed, prediction and scoring run offline.
 
-## 3. 直接复现准确率（不需要训练）
+## 3. Reproduce the frozen result
 
-**所有命令的工作目录都是本文件所在的提交目录，不是原开发项目的 code 目录。**
+**Use the directory containing this README as the working directory. There is no `code/` subdirectory in this package. Retraining is not required.**
 
-Windows：
+Windows PowerShell:
 
 ```powershell
-# 数据与接口检查
+# Check data and the model interface.
 .\.venv\Scripts\python.exe check_data.py
 .\.venv\Scripts\python.exe verify.py
 
-# 复现验证集与测试集，分别生成分数和资源 JSON
+# Evaluate validation and test using the supplied frozen checkpoint.
 .\.venv\Scripts\python.exe evaluate.py --split validation --method selector.py --checkpoint checkpoint --output-dir results
 .\.venv\Scripts\python.exe evaluate.py --split test --method selector.py --checkpoint checkpoint --output-dir results
 ```
 
-Linux/macOS 将解释器替换为 `.venv/bin/python`。若环境已激活，也可将解释器部分替换为 `python`。
+On Linux/macOS, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`. If the environment is activated, `python` can be used instead.
 
-测试评分的关键字段应为：
+Expected test score:
 
 ```json
 {
@@ -100,39 +102,47 @@ Linux/macOS 将解释器替换为 `.venv/bin/python`。若环境已激活，也�
 }
 ```
 
-新输出位于 `results/`：每个 split 有 `*-predictions.json`、`*-score.json`、`*-resources.json`。它们不覆盖 `evidence/` 内的提交记录。
+For each evaluated split, `results/` contains:
 
-`evaluate.py` 使用同一个解释器启动独立预测和评分进程，将 OMP/OpenBLAS/MKL/NumExpr 线程数限制为 4。完整耗时为资源 JSON 的 `total_seconds`，不能只报告模型内部耗时。原开发机器 AMD Ryzen 7 5800H 上完整测试为 13.48 秒；新机器和精简目录的时间会不同。课程参考 Xeon CPU 上的结果决定最终时间资格。
+- `*-predictions.json`: selected candidate indices;
+- `*-score.json`: the independent official score;
+- `*-resources.json`: complete process timings, asset sizes and hashes.
 
-推理资产是 `checkpoint/` 的全部六个文件，共 **6,246,341 字节（5.957 MiB）**。不要遗漏 `checkpoint/v2/`；数据和普通源码不计入额外模型资产。
+These outputs do not overwrite the records in `evidence/`. The `accuracy` field is a percentage.
 
-## 4. 在 PyCharm 中运行
+`evaluate.py` launches fresh prediction and scoring processes using the selected Python interpreter. It limits OMP, OpenBLAS, MKL and NumExpr to four threads. Use `total_seconds` in the resource JSON for complete evaluation time, including startup and preprocessing.
 
-1. 用 File → Open 打开 **MP2_Submission_v14 本身**。
-2. 在 Python Interpreter 中选择 Python 3.12 环境。可新建 `.venv`，也可使用原项目已安装依赖的环境。
-3. Run → Edit Configurations → + → Python，建立：
+Recorded complete test times were 13.48 seconds in the development directory and 13.28 seconds in the standalone directory on an AMD Ryzen 7 5800H. Timing varies across machines; the course reference CPU determines resource eligibility.
 
-| 字段 | 内容 |
+The six files under `checkpoint/` total **6,246,341 bytes (5.957 MiB)**. Keep the entire `checkpoint/v2/` subdirectory. Course-supplied data and ordinary source files are excluded from the additional inference asset limit.
+
+## 4. Run in PyCharm
+
+1. Open **MP2_Submission_v14** itself as the project.
+2. Select a Python 3.12 interpreter with the dependencies installed.
+3. Open **Run > Edit Configurations > + > Python** and enter:
+
+| Field | Value |
 |---|---|
 | Name | `MP2_Final_Test` |
 | Script path | `$PROJECT_DIR$/evaluate.py` |
 | Parameters | `--split test --method selector.py --checkpoint checkpoint --output-dir results` |
 | Working directory | `$PROJECT_DIR$` |
-| Python interpreter | 安装了 requirements.txt 的 Python 3.12 环境 |
+| Python interpreter | The configured Python 3.12 environment |
 
-环境变量可设为：
+Environment variables:
 
 ```text
 OMP_NUM_THREADS=4;OPENBLAS_NUM_THREADS=4;MKL_NUM_THREADS=4;NUMEXPR_NUM_THREADS=4;PYTHONUNBUFFERED=1
 ```
 
-选择绿色 Run 进行计时复现。不要直接运行仅定义函数的 `selector.py`。验证集配置只需把 `--split test` 改成 `--split validation`。
+Use **Run** for timing reproduction. Running `selector.py` directly does not perform evaluation. To evaluate validation, change `--split test` to `--split validation`.
 
-若 Terminal 未激活正确环境，显式使用 `.\.venv\Scripts\python.exe`。若报 `No module named sklearn`，核对运行配置中的解释器，并在该解释器中安装依赖。若找不到 `predict.py` 或 checkpoint，先核对工作目录。
+If imports fail, check the run configuration's interpreter and install `requirements.txt` into that interpreter. If `predict.py` or the checkpoint cannot be found, check the working directory. Explicitly calling `.\.venv\Scripts\python.exe` in the terminal avoids relying on automatic environment activation.
 
-## 5. 复现训练和最终搜索
+## 5. Reproduce training and the final search
 
-### 固定配置重训
+### Fixed-configuration retraining
 
 ```powershell
 .\.venv\Scripts\python.exe train.py --output retraining/checkpoint
@@ -140,59 +150,46 @@ OMP_NUM_THREADS=4;OPENBLAS_NUM_THREADS=4;MKL_NUM_THREADS=4;NUMEXPR_NUM_THREADS=4
 .\.venv\Scripts\python.exe evaluate.py --split validation --method selector.py --checkpoint retraining/checkpoint --output-dir retraining/results
 ```
 
-`train.py` 仅加载训练题及参考答案。它按已选定的配置重建：C=.01 的 pairwise 线性模型、64 隐藏单元/20 轮的神经基线、共享 TF-IDF/SVD，以及 rank=32/L2=.01/40 轮的低秩交互模型。不会读取验证或测试数据，不会覆盖已提交的 `checkpoint/`。
+`train.py` reads training inputs and references only. It reconstructs the selected pairwise linear model (C=.01), the 64-unit/20-epoch neural baseline, the shared TF-IDF/SVD encoder, and the rank-32 low-rank scorer (factor L2=.01, 40 epochs). It does not load validation/test data or overwrite the submitted `checkpoint/`.
 
-训练统计保存为 `retraining/training_summary.json`。本机固定重训已核验；不同 BLAS/操作系统可能导致细微数值或字节差异，官方分数以交付的冻结 checkpoint 为准。
+Training statistics are saved to `retraining/training_summary.json`. Fixed retraining was verified locally. Different BLAS implementations or platforms may introduce small numerical or serialization differences; the submitted frozen checkpoint defines the reported result.
 
-### 重放 v14 开发搜索
+### Replay the v14 development search
 
 ```powershell
 .\.venv\Scripts\python.exe search.py --baseline checkpoint/v2 --output retraining/search
 ```
 
-该过程与记录的最终 v14 搜索保持一致：训练集内部按题目 80/20 分层划分；TF-IDF、SVD 和标准化只拟合内部训练部分；比较 12 个线性配置、4 个低秩配置及其内部 epoch；选好后在全部训练集重训三类模型，再用正式验证集选择融合权重。共 19 次监督拟合和 4 次预处理拟合，种子均为 7506。搜索不读取测试数据。输出在 `retraining/search/`，不会改动提交 checkpoint。
+The search uses an 80/20 question-level stratified split within training. TF-IDF, SVD and normalization fit only the internal training portion. It compares 12 linear configurations and four low-rank configurations with internal epoch selection, refits the three family winners on all training data, and selects fusion on official validation. There are 19 supervised model fits and four preprocessing fits; the seed is 7506. Test data are never loaded. Outputs are written to `retraining/search/`.
 
-早期 v2 的超参数选择和后续未胜出的探索记录见 `evidence/baseline_training.json`、`historical_tuning.json` 和报告。精简包保留最终选中基线的训练配方与最终阶段完整搜索，不附带淘汰模型和全部早期探索脚本。
+Earlier tuning is summarized in `evidence/baseline_training.json`, `evidence/historical_tuning.json` and the report. This minimal package includes the selected baseline recipe and the complete final-stage search, rather than all historical trial scripts and rejected weights. Use training/validation for development, not repeated test-based checkpoint selection.
 
-不要根据测试分数反复选择重训产物；开发新方法应使用训练/验证数据。
-
-## 6. 代码测试与新审计题库
+## 6. Tests, analysis and new audit inputs
 
 ```powershell
 .\.venv\Scripts\python.exe test_interactions.py
 .\.venv\Scripts\python.exe test_math_consistency.py
 .\.venv\Scripts\python.exe verify.py
+.\.venv\Scripts\python.exe analyze.py --output results/analysis.json
 ```
 
-检查包括解析梯度、算术格式边界、空输入、Python 整数输出、新 ID、批处理以及候选置换。可在不重新训练的情况下评测新审计输入：
+Checks cover analytic gradients, arithmetic boundaries, empty inputs, integer outputs, new IDs, batching and candidate permutation. `analyze.py` reproduces post-freeze validation reliability, hard-subset coverage and paired statistics; it does not train or select a model.
+
+For a new audit bank:
 
 ```text
 python predict.py --method selector.py --checkpoint checkpoint --split audit --data-dir /path/to/audit_inputs --output results/audit-predictions.json
 ```
 
-直接运行 predict.py 时，运行环境也应将上面四个线程变量设为 4。该工具不读取参考答案。模型不使用题目 ID 查表或缓存预测。
+When calling `predict.py` directly, set the four thread variables listed above. Prediction does not read references, retrieve answers by ID or use cached predictions.
 
-## 7. 数据、版本与实验记录
+## 7. Data, provenance and recorded evidence
 
-- `data/` 是课程提供的原始 train/validation/test 输入、参考答案和固定嵌入，未更改；它使本目录能离线评测和从头复现训练。
-- 原始 `common.py`、`predict.py`、`score_predictions.py`、`check_data.py` 保持逐字节一致，哈希见 `evidence/official_tools.json`。
-- `evidence/asset_manifest.json` 记录六个模型资产的 SHA-256；`freeze.json` 保留原模型在测试前的冻结记录。
-- `evidence/decision.json`、`internal_selection.json` 记录最终网格与选择；评分、资源和配对比较 JSON 是实际实验记录。
-- `MANIFEST.json` 标识这个精简提交目录的文件内容。原开发记录可能含原开发路径；精简目录的运行结果另有核验记录。
-- v1/v2 的测试成绩在后续开发前已知。v3-v13 未超过 v2 时没有新的测试搜索。v14 先选择验证最优配置、冻结资产，再做一次新的正式测试评分；没有测试后调参。
+- `data/` contains the unchanged course train/validation/test banks, references and fixed embeddings for offline evaluation and training reproduction.
+- `common.py`, `predict.py`, `score_predictions.py` and `check_data.py` are byte-identical to the supplied tools; see `evidence/official_tools.json`.
+- `evidence/asset_manifest.json` records SHA-256 hashes for all six checkpoint files. `freeze.json` preserves the original pre-test freeze record.
+- `evidence/decision.json` and `internal_selection.json` record the final grid and selection. Score, resource and paired-comparison JSON files contain measured results.
+- `MANIFEST.json` identifies this standalone submission snapshot. Development records may contain the original working paths; standalone reproduction is recorded separately.
+- Earlier v1/v2 test results were known before later development. Rounds v3-v13 did not produce a new test-driven search. The final v14 configuration was selected on validation, frozen, and then scored on test without subsequent retuning.
 
-数据题目来自 GSM8K，保留 `data/LICENSE.txt` 和 `data/NOTICE.txt`；候选文本与固定嵌入由课程用 Qwen3-0.6B 制备。没有引入额外预训练权重。算法实现使用 NumPy、SciPy 和 scikit-learn，报告列出课程讲义及论文参考。
-
-## 8. 报告与正式提交
-
-`report.pdf` 为英文黑白学术报告，涵盖任务、方法、头部训练与参数微调、消融、失败尝试、准确率、可靠性、资源和复现过程，最后附 AI 辅助声明。
-
-发布到个人公开 GitHub 仓库时，应保留本目录、完整 checkpoint 和数据许可，并使用固定提交或 release 链接。提交字段的 Accuracy 为 `83.08351177730192`，报告链接指向 `report.pdf`，checkpoint 链接指向完整 `checkpoint/`。
-
-姓名和学号已按本人提供的信息填写为 HE YUXIN、3036897306；个人公开仓库地址仍需本人提供。本包没有代建 GitHub issue。课程网页准备提交链接后，仍需在 GitHub 实际创建 issue 才算完成外部提交。课程截止时间是 2026 年 10 月 31 日 23:59（UTC+8）；当前准备发生在截止后，是否接受补交需由课程方确认。
-
-课程指引：https://github.com/xudongwu-0/DASE7506-MP2/blob/main/guide/GUIDE.md
-
-## AI 辅助声明
-
-本项目使用 OpenAI Codex 辅助检索改进方法与相关论文，并辅助报告的组织、撰写和语言编辑。AI 还参与了训练/推理代码的实现与调试、实验执行、结果核验和分析。未将 AI 辅助范围仅描述为文字润色。模型训练和推理没有调用在线 LLM，没有使用外部训练数据或新增预训练权重。学生应理解并核查实现和结果，并对提交内容承担责任。
+Questions originate from GSM8K. Retain `data/LICENSE.txt` and `data/NOTICE.txt`. The course prepared candidate texts and fixed embeddings with Qwen3-0.6B. No additional pretrained weights are included. Numerical and learning implementations use NumPy, SciPy and scikit-learn; methodological references are listed in `report.pdf`.
