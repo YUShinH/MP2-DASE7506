@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "members": [
+    {
+      "file": "pair.npz",
+      "weight": 0.75,
+      "contextual": false,
+      "pool": "mean",
+      "training": {
+        "C": 0.01,
+        "valid_negative_weight": 3
+      },
+      "name": "pair_c0.01_w3"
+    },
+    {
+      "file": "neural.npz",
+      "weight": 0.25,
+      "contextual": true,
+      "pool": "mean",
+      "training": {
+        "hidden": 64,
+        "objective": "pairwise",
+        "seed": 7506,
+        "epoch": 20
+      },
+      "name": "mlp_64_pairwise_7506"
+    }
+  ],
+  "v1_weight": 0.0,
+  "selection": "maximum overall validation accuracy; first search entry breaks ties",
+  "test_used_for_selection": false
+}
