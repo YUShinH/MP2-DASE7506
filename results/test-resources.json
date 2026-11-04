@@ -1,0 +1,62 @@
+{
+  "split": "test",
+  "prediction_process_seconds": 18.443114000001515,
+  "scoring_process_seconds": 0.8010740999998234,
+  "total_seconds": 19.244188100001338,
+  "threads": 4,
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "cpu_model": "AMD Ryzen 7 5800H with Radeon Graphics",
+  "asset_bytes": 6246341,
+  "assets": {
+    "config.json": {
+      "bytes": 132,
+      "sha256": "3c1aca8cae7695aaa38eff832c1a363df919dcb88f57bfac9083d01c691a67a0"
+    },
+    "text_encoder.joblib": {
+      "bytes": 5463666,
+      "sha256": "444a1c32c1435f839c174a69388af4912c0ffd42d6e59edf0a5dc4ac71ae836f"
+    },
+    "text_model.npz": {
+      "bytes": 199670,
+      "sha256": "266072cda7da188a3866459eb77f50ceb8e708bec058df07a2cbc4af28b8e8ca"
+    },
+    "v2/config.json": {
+      "bytes": 709,
+      "sha256": "b5a93564082c1375e2ee57fc61a15cd3265816439b89bf7a81d80dec01cd3ea0"
+    },
+    "v2/neural.npz": {
+      "bytes": 567980,
+      "sha256": "8158f9f2fcb779d3699025bb0cf51adc6df2d5d572c849725f56e76f99e43388"
+    },
+    "v2/pair.npz": {
+      "bytes": 14184,
+      "sha256": "3770b5d82ab4f1ac596232b492a5e8a137fbd8857e54ea4aae49c465f1ad1c8b"
+    }
+  },
+  "commands": [
+    [
+      "E:\\7506-mp2\\DASE7506-MP2-main\\DASE7506-MP2-main\\.venv\\Scripts\\python.exe",
+      "predict.py",
+      "--method",
+      "selector.py",
+      "--checkpoint",
+      "checkpoint",
+      "--split",
+      "test",
+      "--output",
+      "results\\test-predictions.json"
+    ],
+    [
+      "E:\\7506-mp2\\DASE7506-MP2-main\\DASE7506-MP2-main\\.venv\\Scripts\\python.exe",
+      "score_predictions.py",
+      "--split",
+      "test",
+      "--predictions",
+      "results\\test-predictions.json",
+      "--output",
+      "results\\test-score.json"
+    ]
+  ]
+}
