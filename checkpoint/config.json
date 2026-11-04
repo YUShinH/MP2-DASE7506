@@ -1,0 +1,7 @@
+{
+  "kind": "bilinear",
+  "dimensions": 128,
+  "interact": null,
+  "text_weight": 0.75,
+  "test_used_for_selection": false
+}
