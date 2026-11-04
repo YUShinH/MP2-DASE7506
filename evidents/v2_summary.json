@@ -1,0 +1,12 @@
+{
+  "validation_accuracy": 93.85964912280701,
+  "hard_validation_accuracy": 86.19718309859155,
+  "total_search_seconds": 85.91782090000925,
+  "seed": 7506,
+  "train_questions": 4755,
+  "validation_questions": 798,
+  "hard_validation_questions": 355,
+  "pair_count": 8271,
+  "python": "3.12.14",
+  "threads": 4
+}

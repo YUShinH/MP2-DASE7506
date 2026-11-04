@@ -1,0 +1,69 @@
+{
+  "all_assets_byte_identical": false,
+  "files": [
+    {
+      "file": "config.json",
+      "same_sha256": true
+    },
+    {
+      "file": "text_encoder.joblib",
+      "same_sha256": false
+    },
+    {
+      "file": "text_model.npz",
+      "same_sha256": true
+    },
+    {
+      "file": "v2/config.json",
+      "same_sha256": true
+    },
+    {
+      "file": "v2/neural.npz",
+      "same_sha256": true
+    },
+    {
+      "file": "v2/pair.npz",
+      "same_sha256": true
+    }
+  ],
+  "training": {
+    "seed": 7506,
+    "training_questions": 4755,
+    "settings": "frozen selected recipe; no validation/test read",
+    "seconds": 90.74458550001145,
+    "asset_bytes": 6246341,
+    "assets": {
+      "config.json": {
+        "bytes": 132,
+        "sha256": "3c1aca8cae7695aaa38eff832c1a363df919dcb88f57bfac9083d01c691a67a0"
+      },
+      "text_encoder.joblib": {
+        "bytes": 5463666,
+        "sha256": "cb50bf576cba52bbaabf42c6474a240fccea04cc04ce57a2b9234047ae685bb3"
+      },
+      "text_model.npz": {
+        "bytes": 199670,
+        "sha256": "266072cda7da188a3866459eb77f50ceb8e708bec058df07a2cbc4af28b8e8ca"
+      },
+      "v2/config.json": {
+        "bytes": 709,
+        "sha256": "b5a93564082c1375e2ee57fc61a15cd3265816439b89bf7a81d80dec01cd3ea0"
+      },
+      "v2/neural.npz": {
+        "bytes": 567980,
+        "sha256": "8158f9f2fcb779d3699025bb0cf51adc6df2d5d572c849725f56e76f99e43388"
+      },
+      "v2/pair.npz": {
+        "bytes": 14184,
+        "sha256": "3770b5d82ab4f1ac596232b492a5e8a137fbd8857e54ea4aae49c465f1ad1c8b"
+      }
+    }
+  },
+  "encoder_semantic_comparison": {
+    "svd_components_exact": true,
+    "vocabulary_exact": true,
+    "idf_exact": true,
+    "parameters_exact": true
+  },
+  "all_learned_values_reproduced": true
+}

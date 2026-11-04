@@ -1,0 +1,13 @@
+{
+  "seed": 7506,
+  "train_questions": 4755,
+  "validation_questions": 798,
+  "hard_validation_questions": 355,
+  "total_training_seconds": 35.79510380001739,
+  "python": "3.12.14",
+  "numpy": "2.1.3",
+  "sklearn": "1.6.1",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "threads": 4
+}

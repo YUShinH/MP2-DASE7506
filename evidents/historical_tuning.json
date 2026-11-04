@@ -1,0 +1,141 @@
+{
+  "v3": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "training_seconds": 94.86183670000173,
+    "selected_config": {
+      "version": 3,
+      "members": [
+        {
+          "type": "v2",
+          "directory": "v2",
+          "weight": 1.0
+        }
+      ],
+      "selection": "maximum validation selection accuracy; first grid entry breaks ties",
+      "test_used_for_selection": false
+    },
+    "actual_supervised_fits": 26,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v4": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "new_fits": 10,
+    "training_seconds": 454.70037229999434,
+    "selected_config": {
+      "version": 4,
+      "members": [
+        {
+          "type": "v2",
+          "directory": "v2",
+          "weight": 1.0
+        }
+      ],
+      "selection": "maximum overall validation accuracy; first grid entry breaks ties",
+      "test_used_for_selection": false
+    },
+    "actual_supervised_fits": 20,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v5": {
+    "actual_supervised_fits": 73,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v6": {
+    "actual_supervised_fits": 63,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v7": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 12,
+    "seconds": 376.0520619000017,
+    "actual_supervised_fits": 12,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v8": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 4,
+    "seconds": 50.239524500007974,
+    "actual_supervised_fits": 4,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v9": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 6,
+    "seconds": 127.52449250000063,
+    "actual_supervised_fits": 6,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v10": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 26,
+    "seconds": 33.73606729999301,
+    "actual_supervised_fits": 26,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v11": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 38,
+    "seconds": 83.06471919998876,
+    "selected": {
+      "kind": "baseline"
+    },
+    "actual_supervised_fits": 76,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false,
+    "final_implementation_fits": 38
+  },
+  "v12": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 5,
+    "seconds": 136.66901599999983,
+    "actual_supervised_fits": 5,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  },
+  "v13": {
+    "validation_accuracy": 93.85964912280701,
+    "hard_validation_accuracy": 86.19718309859155,
+    "strict_improvement": false,
+    "fits": 30,
+    "seconds": 64.49312679999275,
+    "selected": {
+      "kind": "baseline"
+    },
+    "actual_supervised_fits": 30,
+    "selected_validation_accuracy": 93.85964912280701,
+    "selected_model": "v2",
+    "new_test_scoring": false
+  }
+}

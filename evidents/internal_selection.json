@@ -1,0 +1,218 @@
+{
+  "settings": [
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": false,
+      "C": 0.003,
+      "internal_accuracy": 91.7981072555205
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": false,
+      "C": 0.01,
+      "internal_accuracy": 92.11356466876973
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": false,
+      "C": 0.03,
+      "internal_accuracy": 91.7981072555205
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": true,
+      "C": 0.003,
+      "internal_accuracy": 91.69295478443743
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": true,
+      "C": 0.01,
+      "internal_accuracy": 91.58780231335436
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": true,
+      "C": 0.03,
+      "internal_accuracy": 91.48264984227129
+    },
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": false,
+      "C": 0.003,
+      "internal_accuracy": 91.48264984227129
+    },
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": false,
+      "C": 0.01,
+      "internal_accuracy": 92.21871713985279
+    },
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": false,
+      "C": 0.03,
+      "internal_accuracy": 91.37749737118823
+    },
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": true,
+      "C": 0.003,
+      "internal_accuracy": 91.27234490010515
+    },
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": true,
+      "C": 0.01,
+      "internal_accuracy": 91.27234490010515
+    },
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": true,
+      "C": 0.03,
+      "internal_accuracy": 91.37749737118823
+    },
+    {
+      "kind": "bilinear",
+      "dimensions": 128,
+      "rank": 16,
+      "l2": 0.001,
+      "epoch": 10,
+      "internal_accuracy": 90.32597266035752,
+      "epoch_checks": [
+        {
+          "epoch": 10,
+          "accuracy": 90.32597266035752
+        },
+        {
+          "epoch": 20,
+          "accuracy": 89.58990536277602
+        },
+        {
+          "epoch": 40,
+          "accuracy": 89.48475289169295
+        }
+      ]
+    },
+    {
+      "kind": "bilinear",
+      "dimensions": 128,
+      "rank": 16,
+      "l2": 0.01,
+      "epoch": 40,
+      "internal_accuracy": 91.27234490010515,
+      "epoch_checks": [
+        {
+          "epoch": 10,
+          "accuracy": 90.85173501577287
+        },
+        {
+          "epoch": 20,
+          "accuracy": 90.64143007360673
+        },
+        {
+          "epoch": 40,
+          "accuracy": 91.27234490010515
+        }
+      ]
+    },
+    {
+      "kind": "bilinear",
+      "dimensions": 128,
+      "rank": 32,
+      "l2": 0.001,
+      "epoch": 40,
+      "internal_accuracy": 90.4311251314406,
+      "epoch_checks": [
+        {
+          "epoch": 10,
+          "accuracy": 89.80021030494217
+        },
+        {
+          "epoch": 20,
+          "accuracy": 90.0105152471083
+        },
+        {
+          "epoch": 40,
+          "accuracy": 90.4311251314406
+        }
+      ]
+    },
+    {
+      "kind": "bilinear",
+      "dimensions": 128,
+      "rank": 32,
+      "l2": 0.01,
+      "epoch": 40,
+      "internal_accuracy": 91.48264984227129,
+      "epoch_checks": [
+        {
+          "epoch": 10,
+          "accuracy": 91.062039957939
+        },
+        {
+          "epoch": 20,
+          "accuracy": 90.7465825446898
+        },
+        {
+          "epoch": 40,
+          "accuracy": 91.48264984227129
+        }
+      ]
+    }
+  ],
+  "selected": [
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": false,
+      "C": 0.01,
+      "internal_accuracy": 92.21871713985279
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": true,
+      "C": 0.003,
+      "internal_accuracy": 91.69295478443743
+    },
+    {
+      "kind": "bilinear",
+      "dimensions": 128,
+      "rank": 32,
+      "l2": 0.01,
+      "epoch": 40,
+      "internal_accuracy": 91.48264984227129,
+      "epoch_checks": [
+        {
+          "epoch": 10,
+          "accuracy": 91.062039957939
+        },
+        {
+          "epoch": 20,
+          "accuracy": 90.7465825446898
+        },
+        {
+          "epoch": 40,
+          "accuracy": 91.48264984227129
+        }
+      ]
+    }
+  ],
+  "training_questions": 3804,
+  "heldout_questions": 951,
+  "official_validation_used": false,
+  "gradient_max_error": 9.576878179373693e-11
+}

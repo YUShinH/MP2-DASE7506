@@ -1,0 +1,112 @@
+{
+  "validation": {
+    "new_correct": 753,
+    "baseline_correct": 749,
+    "n": 798,
+    "repairs": 10,
+    "regressions": 6,
+    "gain_percentage_points": 0.5012531328320802,
+    "paired_bootstrap_95_interval": [
+      -0.5012531328320802,
+      1.5037593984962405
+    ],
+    "mcnemar_exact_p": 0.454498291015625,
+    "bootstrap_seed": 7506,
+    "resamples": 5000
+  },
+  "hard_validation": {
+    "new_correct": 310,
+    "baseline_correct": 306,
+    "n": 355,
+    "repairs": 10,
+    "regressions": 6,
+    "gain_percentage_points": 1.1267605633802817,
+    "paired_bootstrap_95_interval": [
+      -1.1267605633802817,
+      3.3802816901408446
+    ],
+    "mcnemar_exact_p": 0.454498291015625,
+    "bootstrap_seed": 7506,
+    "resamples": 5000
+  },
+  "used_for_selection": false,
+  "raw_score_reliability": {
+    "brier": 0.08314701674863284,
+    "ece_5_bins": 0.12995947132529995,
+    "bins": [
+      {
+        "lower": 0.0,
+        "upper": 0.2,
+        "n": 20,
+        "mean_score": 0.1227275994505902,
+        "accuracy": 0.75
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.4,
+        "n": 35,
+        "mean_score": 0.3030589686763981,
+        "accuracy": 0.6
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.6,
+        "n": 57,
+        "mean_score": 0.5074883183738305,
+        "accuracy": 0.9298245614035088
+      },
+      {
+        "lower": 0.6,
+        "upper": 0.8,
+        "n": 137,
+        "mean_score": 0.7145277299352014,
+        "accuracy": 0.8905109489051095
+      },
+      {
+        "lower": 0.8,
+        "upper": 1.0,
+        "n": 549,
+        "mean_score": 0.9278936117327758,
+        "accuracy": 0.9872495446265938
+      }
+    ],
+    "risk_coverage": [
+      {
+        "target_coverage": 0.25,
+        "n": 200,
+        "accuracy": 0.99
+      },
+      {
+        "target_coverage": 0.5,
+        "n": 399,
+        "accuracy": 0.9924812030075187
+      },
+      {
+        "target_coverage": 0.75,
+        "n": 599,
+        "accuracy": 0.9833055091819699
+      },
+      {
+        "target_coverage": 1,
+        "n": 798,
+        "accuracy": 0.943609022556391
+      }
+    ],
+    "calibrated": false
+  },
+  "test": {
+    "new_correct": 388,
+    "baseline_correct": 380,
+    "n": 467,
+    "repairs": 22,
+    "regressions": 14,
+    "gain_percentage_points": 1.7130620985010707,
+    "paired_bootstrap_95_interval": [
+      -0.8565310492505354,
+      4.282655246252676
+    ],
+    "mcnemar_exact_p": 0.24298495403490966,
+    "bootstrap_seed": 7506,
+    "resamples": 5000
+  }
+}

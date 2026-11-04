@@ -1,0 +1,175 @@
+{
+  "model_fits": 19,
+  "preprocessing_fits": 4,
+  "experiments": [
+    {
+      "kind": "linear",
+      "dimensions": 128,
+      "interact": false,
+      "C": 0.01,
+      "internal_accuracy": 92.21871713985279,
+      "validation_accuracy": 93.734335839599
+    },
+    {
+      "kind": "linear",
+      "dimensions": 64,
+      "interact": true,
+      "C": 0.003,
+      "internal_accuracy": 91.69295478443743,
+      "validation_accuracy": 93.734335839599
+    },
+    {
+      "kind": "bilinear",
+      "dimensions": 128,
+      "rank": 32,
+      "l2": 0.01,
+      "epoch": 40,
+      "internal_accuracy": 91.48264984227129,
+      "epoch_checks": [
+        {
+          "epoch": 10,
+          "accuracy": 91.062039957939
+        },
+        {
+          "epoch": 20,
+          "accuracy": 90.7465825446898
+        },
+        {
+          "epoch": 40,
+          "accuracy": 91.48264984227129
+        }
+      ],
+      "validation_accuracy": 93.60902255639097
+    }
+  ],
+  "fusion_grid": [
+    {
+      "index": 0,
+      "kind": "linear",
+      "interact": false,
+      "text_weight": 0.1,
+      "validation_accuracy": 93.85964912280701,
+      "hard_validation_accuracy": 86.19718309859155
+    },
+    {
+      "index": 0,
+      "kind": "linear",
+      "interact": false,
+      "text_weight": 0.25,
+      "validation_accuracy": 93.85964912280701,
+      "hard_validation_accuracy": 86.19718309859155
+    },
+    {
+      "index": 0,
+      "kind": "linear",
+      "interact": false,
+      "text_weight": 0.5,
+      "validation_accuracy": 93.48370927318295,
+      "hard_validation_accuracy": 85.35211267605634
+    },
+    {
+      "index": 0,
+      "kind": "linear",
+      "interact": false,
+      "text_weight": 0.75,
+      "validation_accuracy": 93.734335839599,
+      "hard_validation_accuracy": 85.91549295774648
+    },
+    {
+      "index": 0,
+      "kind": "linear",
+      "interact": false,
+      "text_weight": 1,
+      "validation_accuracy": 93.734335839599,
+      "hard_validation_accuracy": 85.91549295774648
+    },
+    {
+      "index": 1,
+      "kind": "linear",
+      "interact": true,
+      "text_weight": 0.1,
+      "validation_accuracy": 93.85964912280701,
+      "hard_validation_accuracy": 86.19718309859155
+    },
+    {
+      "index": 1,
+      "kind": "linear",
+      "interact": true,
+      "text_weight": 0.25,
+      "validation_accuracy": 93.60902255639097,
+      "hard_validation_accuracy": 85.63380281690141
+    },
+    {
+      "index": 1,
+      "kind": "linear",
+      "interact": true,
+      "text_weight": 0.5,
+      "validation_accuracy": 93.60902255639097,
+      "hard_validation_accuracy": 85.63380281690141
+    },
+    {
+      "index": 1,
+      "kind": "linear",
+      "interact": true,
+      "text_weight": 0.75,
+      "validation_accuracy": 93.85964912280701,
+      "hard_validation_accuracy": 86.19718309859155
+    },
+    {
+      "index": 1,
+      "kind": "linear",
+      "interact": true,
+      "text_weight": 1,
+      "validation_accuracy": 93.734335839599,
+      "hard_validation_accuracy": 85.91549295774648
+    },
+    {
+      "index": 2,
+      "kind": "bilinear",
+      "interact": null,
+      "text_weight": 0.1,
+      "validation_accuracy": 93.734335839599,
+      "hard_validation_accuracy": 85.91549295774648
+    },
+    {
+      "index": 2,
+      "kind": "bilinear",
+      "interact": null,
+      "text_weight": 0.25,
+      "validation_accuracy": 93.48370927318295,
+      "hard_validation_accuracy": 85.35211267605634
+    },
+    {
+      "index": 2,
+      "kind": "bilinear",
+      "interact": null,
+      "text_weight": 0.5,
+      "validation_accuracy": 94.11027568922306,
+      "hard_validation_accuracy": 86.76056338028168
+    },
+    {
+      "index": 2,
+      "kind": "bilinear",
+      "interact": null,
+      "text_weight": 0.75,
+      "validation_accuracy": 94.3609022556391,
+      "hard_validation_accuracy": 87.32394366197182
+    },
+    {
+      "index": 2,
+      "kind": "bilinear",
+      "interact": null,
+      "text_weight": 1,
+      "validation_accuracy": 93.60902255639097,
+      "hard_validation_accuracy": 85.63380281690141
+    }
+  ],
+  "selected_index": 2,
+  "text_weight": 0.75,
+  "validation_accuracy": 94.3609022556391,
+  "hard_validation_accuracy": 87.32394366197182,
+  "strict_improvement": true,
+  "test_used_for_selection": false,
+  "gradient_max_error": 9.576878179373693e-11,
+  "seconds": 244.35566939998535
+}
